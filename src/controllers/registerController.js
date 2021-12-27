@@ -19,13 +19,12 @@ let createNewUser = async (req, res) => {
         req.flash('errors', errArr);
         return res.redirect('/register');
     };
-
-    try {
         let newUser = {
             fullName: req.body.fullName,
             email: req.body.email,
             password: req.body.password
         };
+    try {
         await registerService.createNewUser(newUser);
         return res.redirect('/login');
     } catch (e) {
