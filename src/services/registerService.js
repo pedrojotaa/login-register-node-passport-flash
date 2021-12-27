@@ -1,5 +1,5 @@
-import connection from "../configs/connect";
 import bcrypt from "bcrypt";
+import connection from "../configs/connect";
 
 let createNewUser = (newUser) => {
     return new Promise (async (resolve, reject) => {

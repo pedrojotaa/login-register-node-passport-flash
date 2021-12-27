@@ -10,6 +10,15 @@ let validateRegister = [
     })
 ];
 
+let validateLogin = [
+    check('email', 'Invalid Email').isEmail().trim(),
+
+    check('password', 'Invalid passwword').not().isEmpty()
+];
+
+
+
 module.exports = {
-    validateRegister: validateRegister
+    validateRegister: validateRegister,
+    validateLogin: validateLogin
 };

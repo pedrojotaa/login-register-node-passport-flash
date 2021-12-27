@@ -17,7 +17,13 @@
             </div>
             <div class="col-5 mt-2">
                 <div>
-              
+                    <% if(errors != "") { %>
+                        <% errors.forEach((item) => { %>
+                            <div class="alert alert-danger">
+                                <%- item %>
+                            </div>
+                        <% }); %>
+                    <% } %>
                 </div>
                 <form method="POST" action="/login">
                     <div class="form-group">
