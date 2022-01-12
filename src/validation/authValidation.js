@@ -16,8 +16,6 @@ let validateLogin = [
     check('password', 'Invalid passwword').not().isEmpty()
 ];
 
-
-
 module.exports = {
     validateRegister: validateRegister,
     validateLogin: validateLogin

@@ -1,5 +1,4 @@
 import { validationResult } from "express-validator";
-import loginService from "../services/loginService"
 
 let getLoginPage = (req, res) => {
     return res.render('login.ejs', {
@@ -19,26 +18,17 @@ let handleLogin = async (req, res) => {
         req.flash('errors', errArr);
         return res.redirect('/login');
     };
-
-    try {
-        await loginService.handleLogin(req.body.email, req.body.password);
-        return res.redirect("/");
-    } catch (e) {
-        req.flash('errors', e);
-        return res.redirect('/login');
-    };
-
 };
 
 let checkLoggedIn = (req, res, next) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         return res.redirect('/login')
     }
     next()
 };
 
 let checkLoggedOut = (req, res, next) => {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         return res.redirect('/')
     }
     next()
@@ -52,8 +42,8 @@ let postLogOut = (req, res) => {
 
 module.exports = {
     getLoginPage: getLoginPage,
+    handleLogin: handleLogin,
     checkLoggedIn: checkLoggedIn,
     checkLoggedOut: checkLoggedOut,
-    postLogOut: postLogOut,
-    handleLogin: handleLogin
+    postLogOut: postLogOut
 };

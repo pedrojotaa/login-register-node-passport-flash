@@ -39,7 +39,7 @@ let checkEmailUser = async (email) => {
                     if(error){
                         reject(error);
                     };
-                    if(resultado > 0){
+                    if(resultado.length > 0){
                         resolve(true);
                     }else{
                         resolve(false);

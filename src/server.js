@@ -15,7 +15,7 @@ app.use(cookieParser('secret'))
 
 //habilitando o post de dados pelo body parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
@@ -44,12 +44,12 @@ initWebRoutes(app);
 
 //conectando banco de dados
 connection.connect(error => {
-    if(error){
+    if (error) {
         console.log(error)
-    }else{
+    } else {
         console.log('conectado db')
     };
 });
 
 let port = process.env.PORT || 3000;
-app.listen(port, () =>console.log(`Building a login system with NodeJS is running on port ${port}!`));
+app.listen(port, () => console.log(`Building a login system with NodeJS is running on port ${port}!`));

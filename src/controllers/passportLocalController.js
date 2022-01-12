@@ -6,26 +6,29 @@ let LocalStrategy = passportLocal.Strategy
 
 let initPassportLocal = () => {
     passport.use(new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password',
-        passReqToCallback: true
-    },
+            usernameField: 'email',
+            passwordField: 'password',
+            passReqToCallback: true
+        },
         async (req, email, password, done) => {
             try {
                 let user = await loginService.findUserByEmail(email)
                 if (!user) {
-                    return done(null, false, req.flash('errors', `This user email ${email} doesn´t exists`))
+                    return done(null, false, req.flash('errors', `This user email ${email} doesnt exists by passport`))
                 }
                 if (user) {
-                    let match = loginService.comparePasswordUser(user, password)
+                    let match = await loginService.comparePasswordUser(user, password)
+                    console.log(match)
                     if (match === true) {
                         return done(null, user, null)
-                    }else{
+                    } else {
                         return done(null, false, req.flash('errors', match))
                     }
                 }
             } catch (error) {
-                return done(null, false, {msg: error})
+                return done(null, false, {
+                    msg: error
+                })
             }
         }
     ))
@@ -33,15 +36,16 @@ let initPassportLocal = () => {
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
-  });
-  
+});
+
 passport.deserializeUser((id, done) => {
-    loginService.findUserById(id).then(user => {
-        done(null, user);
-    }).catch(error => {
-        done(error, null);
-    })
-   
+    loginService.findUserById(id)
+        .then(user => {
+            done(null, user);
+        }).catch(error => {
+            done(error, null);
+        })
+
 });
 
 module.exports = initPassportLocal
